@@ -5,6 +5,9 @@ This repository contains system design interview preparation materials and refer
 ## Included content
 
 - `docs/google-news-system-design.md` — a detailed system design reference for building a Google News–style service.
+- `docs/centralized-logging-system-design.md` — a high-level design guide for a centralized logging and observability platform.
+- `docs/fraudulent-card-detection-design.md` — a fraud detection design for book-now-pay-later credit card checks.
+- `docs/hotel-booking-system-design.md` — a hotel booking system design with schema, scalability, and concurrency.
 
 ## Purpose
 
