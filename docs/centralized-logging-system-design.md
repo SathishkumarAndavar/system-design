@@ -43,6 +43,20 @@ Design a centralized logging system that collects, stores, indexes, and analyzes
 8. Long-term archive
 9. Access control and UI
 
+## Data store choices
+
+- Search/index store: Elasticsearch / OpenSearch / ClickHouse are common for log search because they offer fast full-text indexing, time-series partitioning, and aggregations.
+- Queue store: Kafka or Pulsar provide durable ingestion, replay, and partitioning by source, service, or region.
+- Cold archive: Object storage like S3/GCS is ideal for older logs that do not require fast search.
+- Alternatives: TimescaleDB or Druid are viable if structured time-series analytics are the dominant use case instead of full-text search.
+
+## Cache and query optimization options
+
+- Cache hot queries at the API or UI layer using Redis or CDN edge caches for dashboards.
+- Use query result caching for repeated searches and popular dashboards.
+- Use TTL-based invalidation for caches when log indexing is delayed.
+- Implement query routing to a separate analytics cluster for heavy ad hoc queries while keeping operational search on a low-latency cluster.
+
 ## Architecture
 
 ### Architecture Diagram

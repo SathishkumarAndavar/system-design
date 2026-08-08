@@ -9,6 +9,8 @@ This repository contains system design interview preparation materials and refer
 - `docs/fraudulent-card-detection-design.md` — a fraud detection design for book-now-pay-later credit card checks.
 - `docs/hotel-booking-system-design.md` — a hotel booking system design with schema, scalability, and concurrency.
 
+- `docs/dynamic-config-system-design.md` — a design summary for a read-heavy configuration service using cache-first reads, CDC-based invalidation, and object storage for large payloads.
+
 ## Purpose
 
 Use this repo to study architectural patterns, requirements gathering, component design, scalability considerations, and trade-offs for interview questions.

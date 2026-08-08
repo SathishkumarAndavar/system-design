@@ -79,6 +79,14 @@ graph TD
 - Keep article text and resource pointers in a storage service (e.g. S3 or object storage).
 - Use a relational or NoSQL store for metadata that needs fast point lookups.
 
+### Data store and caching choices
+
+- Use Elasticsearch/OpenSearch when full-text search and faceted filters are a primary requirement.
+- Use DynamoDB/Cassandra for fast point lookups and global scale when search can be handled separately.
+- Store large article bodies and images in object storage and keep only metadata in the database.
+- Cache popular feeds and article detail responses in Redis or CDN edge caches.
+- For personalization, keep user profile state in Redis or a fast kv store to avoid frequent backend lookups.
+
 ### 3. Deduplication and Clustering
 
 - Compute content signatures or hashes for deduplication.
@@ -168,6 +176,14 @@ graph TD
 - Use separate clusters for real-time ranking and offline analytics.
 - Employ fan-out caching for popular feeds.
 - Use autoscaling for API services and workers.
+
+### Machine sizing and capacity guidance
+
+- Ingestion workers: 8–16 vCPU with fast local SSD for parsing and enrichment.
+- Search/index nodes: 16–32 vCPU, 64–128 GB RAM, and NVMe SSD for Elasticsearch/OpenSearch.
+- Personalization/cache nodes: 8–16 vCPU, 32–64 GB RAM for Redis or in-memory profile stores.
+- CDN edge layer: Serve cached feed/content near users and reduce origin load.
+- Object storage origin: Use S3/GCS with lifecycle policies for media and long-form content.
 
 ## Trade-offs
 

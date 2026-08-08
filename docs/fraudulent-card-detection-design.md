@@ -78,6 +78,13 @@ graph TD
 - Record card fingerprints, last-check time, and risk level.
 - Support fast lookup during booking.
 
+### Database and cache choices
+
+- Use a relational DB for fraud state when strong consistency and auditability are required.
+- Use a fast key-value store like Redis or DynamoDB for lookup cache of recently seen cards.
+- Cache third-party fraud responses and block decisions for a short TTL to avoid repeated remote calls.
+- Use write-through or cache-aside semantics for the decision cache.
+
 ### 5. Transaction Store
 
 - Persist booking attempts, payment metadata, and fraud decision results.
@@ -125,6 +132,13 @@ graph TD
 - Partition the flagged cards DB by card hash or geographic region.
 - Scale the fraud detection service horizontally behind a load balancer.
 - Use asynchronous updates for non-blocking audit record writes.
+
+### Machine sizing and flow options
+
+- Fraud decision API: 8–16 vCPU, 32–64 GB RAM for low-latency synchronous checks.
+- Cache nodes: 8–16 vCPU, 32–64 GB RAM for Redis/DynamoDB lookup cache.
+- Audit store: separate write-optimized cluster for slow writes with event batching.
+- Use a hybrid flow: synchronous fraud check for blocking decisions, asynchronous persistence for audit logs and analytics.
 
 ## Trade-offs
 

@@ -67,6 +67,13 @@ graph TD
 - Reserve inventory temporarily during booking flow.
 - Update availability when reservations are confirmed or cancelled.
 
+### Data store and cache choices
+
+- Use a relational database for reservation and inventory state to preserve strong consistency.
+- Use an in-memory cache or Redis for hotel metadata, room details, and price lookups.
+- Use TTL-based cache invalidation for search results, and event-based invalidation for availability changes.
+- Consider a separate search engine (Elasticsearch/OpenSearch) for hotel discovery and faceted filtering.
+
 ### 3. Reservation Service
 
 - Manage booking creation, updates, and cancellations.
@@ -154,6 +161,14 @@ graph TD
 - Separate read-heavy search services from write-heavy reservation services.
 - Use caching for hotel details and price lookups.
 - Employ asynchronous workflows for notifications and analytics.
+
+### Machine sizing and cache logic
+
+- API / reservation nodes: 16–32 vCPU, 64–128 GB RAM if they maintain local availability caches.
+- Search nodes: 16–32 vCPU, 64–128 GB RAM for Elastic/OpenSearch clusters.
+- Inventory DB nodes: 8–16 vCPU, 64 GB RAM, NVMe SSD for strong transactionality.
+- Use CDN for static hotel content and images; use cache-control headers on metadata endpoints.
+- Use invalidation events when availability changes rather than long TTLs to reduce stale search results.
 
 ## Interview Talking Points
 
