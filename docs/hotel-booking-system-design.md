@@ -44,15 +44,24 @@ Design a hotel booking system that supports users searching for hotels, reservin
 ### Architecture Diagram
 
 ```mermaid
-graph TD
-  A["User / Web Client"] --> B["API Gateway"]
-  B --> C["Search Service"]
-  B --> D["Reservation Service"]
-  D --> E["Availability Store"]
-  D --> F["Booking Database"]
-  F --> G["Notification / Confirmation"]
-  C --> H["Hotel Metadata Store"]
-  C --> I["Price / Inventory Cache"]
+graph TD;
+    User["User / Web Client"] --> APIGateway["API Gateway"];
+
+    subgraph "Search Path (Read-Heavy)"
+        APIGateway -- "/search" --> SearchService["Search Service"];
+        SearchService --> SearchIndex["Search Index (Elasticsearch)"];
+        SearchService --> PriceCache["Price/Inventory Cache (Redis)"];
+    end
+
+    subgraph "Booking Path (Write-Heavy)"
+        APIGateway -- "/reservations" --> ReservationService["Reservation Service"];
+        ReservationService --> InventoryDB["Inventory DB (Postgres/MySQL)"];
+        ReservationService --> PaymentsService["Payments Service"];
+        InventoryDB -- "triggers" --> Notifications["Notification Service"];
+    end
+
+    style SearchPath fill:#f9f,stroke:#333,stroke-width:2px
+    style BookingPath fill:#ccf,stroke:#333,stroke-width:2px
 ```
 
 ### 1. Search Service

@@ -45,13 +45,21 @@ Design a fraud detection system for a "book now, pay later" hotel booking flow. 
 ### Architecture Diagram
 
 ```mermaid
-graph TD
-  A["Booking Service"] --> B["Fraud Detection Service"]
-  B --> C["Third-party Fraud API"]
-  B --> D["Flagged Cards DB"]
-  B --> E["Transaction Store"]
-  E --> F["Audit Logs"]
-  B --> G["Decision Cache"]
+graph TD;
+    subgraph "Real-time Fraud Check"
+        User -- "1. Book Hotel" --> BookingService["Booking Service"];
+        BookingService -- "2. Check Fraud" --> FraudService["Fraud Detection Service"];
+        FraudService -- "3. Check Cache" --> DecisionCache["Decision Cache (Redis)"];
+        FraudService -- "4. Check Internal DB" --> FlaggedDB["Flagged Cards DB (Postgres/MySQL)"];
+        FraudService -- "5. Check 3rd Party" --> ThirdPartyAPI["Third-party Fraud API"];
+        FraudService -- "6. Store Result" --> TransactionStore["Transaction Store"];
+        FraudService -- "7. Return Decision" --> BookingService;
+    end
+
+    subgraph "Offline Data Enrichment"
+        ThirdPartyAPI -- "Push/Pull Updates" --> DataSync["Data Sync Service"];
+        DataSync --> FlaggedDB;
+    end
 ```
 
 ### 1. Booking API

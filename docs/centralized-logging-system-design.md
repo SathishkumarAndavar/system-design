@@ -62,15 +62,22 @@ Design a centralized logging system that collects, stores, indexes, and analyzes
 ### Architecture Diagram
 
 ```mermaid
-graph TD
-  A["Log Shippers / Agents"] --> B["Ingestion Gateway"]
-  B --> C["Message Queue"]
-  C --> D["Parsing and Enrichment"]
-  D --> E["Indexing / Search Store"]
-  D --> F["Metrics / Alert Engine"]
-  E --> G["Query API / UI"]
-  F --> H["Alerting / Notification"]
-  E --> I["Archive Storage"]
+graph TD;
+    subgraph "Producers"
+        LogShippers["Log Shippers / Agents"];
+    end
+    subgraph "Ingestion & Processing Pipeline"
+        IngestionGateway["Ingestion Gateway"];
+        MessageQueue["Message Queue (Kafka)"];
+        ProcessingWorkers["Parsing & Enrichment Workers"];
+    end
+    subgraph "Storage & Query"
+        SearchStore["Indexing / Search Store (Elasticsearch)"];
+        QueryAPI["Query API / UI"];
+        ArchiveStorage["Archive Storage (S3/GCS)"];
+    end
+    LogShippers --> IngestionGateway --> MessageQueue --> ProcessingWorkers --> SearchStore --> QueryAPI;
+    SearchStore --> ArchiveStorage;
 ```
 
 ### 1. Log Shippers

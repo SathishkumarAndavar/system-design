@@ -47,23 +47,25 @@ Design a news aggregation and personalization service similar to Google News. Th
 ### Architecture Diagram
 
 ```mermaid
-graph TD
-  A["Crawlers / RSS Connectors"] -->|fetch articles| B["Message Queue (Kafka)"]
-  B --> C["Ingestion Workers"]
-  C --> D["Normalization and Validation"]
-  D --> E["Deduplication / Clustering"]
-  E --> F["Topic Classification"]
-  F --> G["Article Index / Storage"]
-  F --> H["Ranking and Personalization"]
-  G --> I["Search Service"]
-  H --> J["API Gateway"]
-  I --> J
-  J --> K["User Feed / Search API"]
-  J --> L["Cache / CDN"]
-  G -.-> M["Object Storage (S3)"]
-  H -.-> N["User Profile Store (Redis)"]
-  J -.-> O["Monitoring / Alerting"]
-  L --> K
+graph TD;
+    subgraph "Offline Processing Pipeline"
+        direction LR
+        Crawlers --> Kafka["Message Queue (Kafka)"];
+        Kafka --> Ingestion["Ingestion & Normalization"];
+        Ingestion --> Deduplication["Deduplication & Clustering"];
+        Deduplication --> Classification["Topic Classification"];
+        Classification --> ArticleStore["Article Index/Storage (Elasticsearch)"];
+    end
+
+    subgraph "Online Serving Path"
+        direction TD
+        User --> APIGateway["API Gateway"];
+        APIGateway --> FeedService["Feed & Personalization Service"];
+        FeedService --> UserProfile["User Profile Store (Redis)"];
+        FeedService --> ArticleStore;
+        APIGateway --> SearchService["Search Service"];
+        SearchService --> ArticleStore;
+    end
 ```
 
 ### 1. Ingestion

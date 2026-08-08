@@ -63,19 +63,28 @@ Components:
 - Optional object storage / CDN for heavy payloads
 
 Diagram:
+```mermaid
+graph TD
+    subgraph "Read Path (High QPS)"
+        Client_Read --> App_Service
+        App_Service -- "1. Check L1" --> L1_Cache["L1 In-Process Cache"]
+        App_Service -- "2. On miss, check L2" --> L2_Cache["L2 Distributed Cache (Redis)"]
+        App_Service -- "3. On miss, read from DB" --> MySQL_Replica["MySQL Read Replica"]
+    end
 
-```text
-[Client] -> [API Gateway]
-    /                   \
- [Read path]         [Write path]
-   |                     |
- [L1 Cache]           [Config Writer]
-   |                     |
- [L2 Cache]           [MySQL Primary]
-   |                     |
- [MySQL Read Replicas]  [Binlog -> CDC -> Pub/Sub]
-                           |
-                [Cache invalidation / update events]
+    subgraph "Write Path (Low QPS)"
+        Client_Write --> Writer_Service["Writer Service"]
+        Writer_Service --> MySQL_Primary["MySQL Primary"]
+    end
+
+    subgraph "Cache Invalidation (CDC)"
+        MySQL_Primary -- "Binlog" --> CDC["CDC (Debezium)"]
+        CDC --> Kafka["Message Queue (Kafka)"]
+        Kafka --> App_Service
+    end
+
+    Client_Read["Client (SDK)"]
+    Client_Write["Client (Admin UI/API)"]
 ```
 
 ## Cache architecture and invalidation options
