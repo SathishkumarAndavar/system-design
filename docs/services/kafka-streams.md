@@ -15,6 +15,8 @@ flowchart LR
     Sink --> Store[(State Store / RocksDB)]
 ```
 
+![Kafka Streams pipeline infographic](../assets/infographics/kafka-streams-pipeline-v2.png)
+
 ## Use Cases
 
 ### In Google News System
@@ -617,4 +619,3 @@ This decouples producer speed from consumer/database speed and prevents the appl
 ### Interview-friendly summary
 
 Kafka is a durable event buffer between application services and the database. It stores data on Kafka brokers using topics and partitions, and consumers read those events and write them to MySQL in batches. This protects the database from overload, improves throughput, and adds retry/replay capability.
-
