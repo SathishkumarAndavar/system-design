@@ -11,6 +11,8 @@ Core responsibilities:
 
 ## Visualization
 
+!Database Types Overview
+
 ```mermaid
 flowchart TD
     App[Application] --> DB[Database Layer]
@@ -244,4 +246,3 @@ Operational practices:
 - Use partitioning to scale writes; pick a sharding key that minimizes hot keys and supports primary queries.
 - Monitor replication lag and design client read policies to avoid stale reads when necessary.
 - Favor idempotent consumers and change-data-capture patterns for cross-system replication and auditing.
-

@@ -44,6 +44,8 @@ Design a fraud detection system for a "book now, pay later" hotel booking flow. 
 
 ### Architecture Diagram
 
+![Fraudulent Card Detection Architecture](assets/infographics/fraudulent-card-detection-design-01.png)
+
 ```mermaid
 graph TD;
     subgraph "Real-time Fraud Check"

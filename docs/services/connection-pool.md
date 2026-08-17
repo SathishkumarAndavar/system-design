@@ -5,6 +5,8 @@ Connection pooling is a technique to manage and reuse database, cache, and exter
 
 ## Visualization
 
+![Connection Pool Architecture](assets/infographics/connection-pool-01.png)
+
 ```mermaid
 flowchart LR
     App[Application Thread] --> Pool[Connection Pool]
@@ -465,4 +467,3 @@ class ResilientPoolClient:
 6. **Implement graceful degradation**: Fallback when pool full
 7. **Log connection events**: Debug and troubleshooting
 8. **Test failure scenarios**: Verify retry and recovery logic
-

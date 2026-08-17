@@ -5,6 +5,8 @@ Kafka Streams is a client library for building streaming applications that proce
 
 ## Visualization
 
+![Kafka Streams Application Flow](assets/infographics/kafka-streams-01.png)
+
 ```mermaid
 flowchart LR
     Input[Raw Kafka Topic] --> App[Kafka Streams App]
@@ -15,7 +17,7 @@ flowchart LR
     Sink --> Store[(State Store / RocksDB)]
 ```
 
-![Kafka Streams pipeline infographic](../assets/infographics/kafka-streams-pipeline-v2.png)
+!Kafka Streams Pipeline: From Event Ingestion to Durable Analytics
 
 ## Use Cases
 

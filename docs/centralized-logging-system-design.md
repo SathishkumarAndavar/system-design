@@ -6,6 +6,8 @@ Design a centralized logging system that collects, stores, indexes, and analyzes
 
 ## Visualization
 
+![Centralized Logging System Architecture](assets/infographics/centralized-logging-system-design-01.png)
+
 ```mermaid
 flowchart LR
     App1[App Service] --> LogShipper[Log Shipper / Agent]
@@ -77,6 +79,8 @@ flowchart LR
 ## Architecture
 
 ### Architecture Diagram
+
+![Centralized Logging Data Flow](assets/infographics/centralized-logging-system-design-02.png)
 
 ```mermaid
 graph TD;

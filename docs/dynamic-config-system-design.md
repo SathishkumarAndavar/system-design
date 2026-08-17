@@ -10,6 +10,8 @@ This design document describes a scalable configuration/feature-flag service tha
 
 ## Visualization
 
+![Dynamic Configuration Service High-Level Design](assets/infographics/dynamic-config-system-design-01.png)
+
 ```mermaid
 flowchart LR
     Client[Client Service] --> API[Config API]
@@ -77,6 +79,8 @@ Components:
 - Optional object storage / CDN for heavy payloads
 
 Diagram:
+![Dynamic Configuration Read, Write, and Invalidation Paths](assets/infographics/dynamic-config-system-design-02.png)
+
 ```mermaid
 graph TD
     subgraph "Read Path (High QPS)"

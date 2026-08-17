@@ -5,6 +5,8 @@ Event-based triggers are mechanisms that detect changes or specific conditions i
 
 ## Visualization
 
+![Event-Based Triggers Flow](assets/infographics/services-event-based-triggers-01.png)
+
 ```mermaid
 flowchart LR
     Source[Event Source] --> Broker[Event Broker / Kafka]
@@ -20,6 +22,8 @@ flowchart LR
 ```
 
 ## Kafka Buffering Architecture
+
+![Kafka Buffering Architecture for Event Processing](assets/infographics/services-event-based-triggers-02.png)
 
 ```mermaid
 flowchart TB

@@ -25,6 +25,8 @@ This document describes the design of a distributed lock manager using **Apache 
 
 The architecture is straightforward, consisting of clients that use a ZooKeeper SDK to interact with a ZooKeeper server cluster (called an ensemble).
 
+![ZooKeeper Distributed Lock Architecture](assets/infographics/distributed-lock-manager-zookeeper-01.png)
+
 ```mermaid
 graph TD
     subgraph "Clients"
@@ -66,6 +68,8 @@ The core of the design is the specific algorithm (or "recipe") used to implement
 
 The following sequence diagram illustrates how a client acquires a lock for a resource named `my-resource`.
 
+!ZooKeeper Lock Acquisition Flow
+
 ```mermaid
 sequenceDiagram
     participant Client
@@ -92,6 +96,7 @@ sequenceDiagram
     Client->>+ZK: Get Children of `/locks/my-resource`
     ZK-->>-Client: Return list: `[lock-0000000005]`
     Client->>Client: My Znode is now lowest. Acquire Lock!
+end
 ```
 
 **Detailed Steps to Acquire Lock:**

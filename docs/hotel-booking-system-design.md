@@ -43,6 +43,8 @@ Design a hotel booking system that supports users searching for hotels, reservin
 
 ### Architecture Diagram
 
+!Hotel Booking System Architecture
+
 ```mermaid
 graph TD;
     User["User / Web Client"] --> APIGateway["API Gateway"];

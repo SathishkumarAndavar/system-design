@@ -5,6 +5,8 @@ Apache Kafka is a distributed event streaming platform designed for high-through
 
 ## Visualization
 
+!Kafka Message Queue Data Flow
+
 ```mermaid
 flowchart LR
     Producer1[Crawlers] --> Topic1[raw-articles Topic]
@@ -147,4 +149,3 @@ For 1M articles/day (~12 msg/sec baseline, peaks to 100 msg/sec):
 - **Storage**: 7-day retention × 1KB/article = ~8 GB = minimal
 - **Network**: Inter-broker replication and consumer bandwidth = $200/month
 - **Total**: ~$1,700/month for Kafka cluster
-

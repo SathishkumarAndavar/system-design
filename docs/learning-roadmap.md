@@ -4,6 +4,8 @@ This document maps your existing system design notes to a structured learning pa
 
 ## Visualization
 
+![System Design Learning Roadmap](assets/infographics/learning-roadmap-01.png)
+
 ```mermaid
 flowchart TD
     Basics[Core Foundations] --> Services[Distributed Services]

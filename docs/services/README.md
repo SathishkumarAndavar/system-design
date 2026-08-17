@@ -6,6 +6,8 @@ This directory contains detailed documentation for all critical services used in
 
 ## Visualization
 
+![Services Overview Diagram](assets/infographics/services-README-01.png)
+
 ```mermaid
 flowchart LR
     Crawlers[Content Crawlers] --> Kafka[Kafka Message Queue]
@@ -346,4 +348,3 @@ Detection window: 1-5 minutes
 - Redis Official: https://redis.io/
 - Event-Driven Architecture: https://www.oreilly.com/library/view/building-event-driven-systems/
 - Connection Pooling Best Practices: https://wiki.postgresql.org/wiki/Performance_Optimization
-

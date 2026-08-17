@@ -5,6 +5,8 @@ Redis is an in-memory data structure store used for caching, session management,
 
 ## Visualization
 
+![Redis Cache Architecture](assets/infographics/redis-cache-01.png)
+
 ```mermaid
 flowchart LR
     App[Application / API] --> Redis[Redis Cluster]
@@ -386,4 +388,3 @@ For Google News system caching:
 | **MySQL with InnoDB** | Durable, complex queries | Slower than Redis, more overhead |
 | **DynamoDB** | Managed, scalable | Higher latency, cost variance |
 | **Aerospike** | Very fast, ACID transactions | More complex, specialized use |
-
