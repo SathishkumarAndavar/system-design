@@ -32,7 +32,7 @@ flowchart TB
     classDef small fill:#ffffff,stroke:#94a3b8,stroke-width:1px,color:#111;
 
     subgraph T1[Producer]
-        P1[Applications produce\nhuge volume of data\n(e.g. 100,000 records/sec)]
+        P1[Applications produce<br/>huge volume of data<br/>(e.g. 100,000 records/sec)]
     end
     class P1 producer;
 
@@ -44,7 +44,7 @@ flowchart TB
     end
     class K1,K2,K3,K4 kafka;
 
-    subgraph T3[Kafka Streams\n(Consumer Group)]
+    subgraph T3[Kafka Streams<br/>(Consumer Group)]
         S1[Consumer 1]
         S2[Consumer 2]
         S3[Consumer 3]
@@ -79,16 +79,16 @@ flowchart TB
 
     subgraph T6[Where Kafka stores data]
         ST1[Disk Storage]
-        ST2[Kafka broker stores\nlog segments and index files]
-        ST3[Retained for configured period\n(e.g. 7 days) or size limit]
-        ST4[Replicated across brokers\nfor availability]
+        ST2[Kafka broker stores<br/>log segments and index files]
+        ST3[Retained for configured period<br/>(e.g. 7 days) or size limit]
+        ST4[Replicated across brokers<br/>for availability]
     end
     class ST1,ST2,ST3,ST4 note;
 
     subgraph T7[Consumer Offset (progress tracking)]
         O1[Partition log]
         O2[0 1 2 3 4 5 6 7 8 9 ...]
-        O3[Consumer offset\n(next record to read)]
+        O3[Consumer offset<br/>(next record to read)]
     end
     class O1,O2,O3 small;
 
