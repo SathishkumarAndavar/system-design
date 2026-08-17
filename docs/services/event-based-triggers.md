@@ -3,6 +3,113 @@
 ## Overview
 Event-based triggers are mechanisms that detect changes or specific conditions in the system and automatically execute associated actions. They decouple services and enable reactive, event-driven architectures for the Google News system.
 
+## Visualization
+
+```mermaid
+flowchart LR
+    Source[Event Source] --> Broker[Event Broker / Kafka]
+    Broker --> Trigger[Trigger Engine]
+    Trigger --> Handler1[Ingestion Handler]
+    Trigger --> Handler2[Personalization Handler]
+    Trigger --> Handler3[Notification Handler]
+    Trigger --> Handler4[Cache Invalidation]
+    Handler1 --> Result1[Action / Update]
+    Handler2 --> Result2[User Feed Update]
+    Handler3 --> Result3[Notification Sent]
+    Handler4 --> Result4[Cache Refresh]
+```
+
+## Kafka Buffering Architecture
+
+```mermaid
+flowchart TB
+    classDef producer fill:#dff4e8,stroke:#2e7d32,stroke-width:2px,color:#111;
+    classDef kafka fill:#dfeaf7,stroke:#3b82f6,stroke-width:2px,color:#111;
+    classDef stream fill:#f3e8ff,stroke:#7c3aed,stroke-width:2px,color:#111;
+    classDef batch fill:#fff4d9,stroke:#f59e0b,stroke-width:2px,color:#111;
+    classDef db fill:#dff4e8,stroke:#2e7d32,stroke-width:2px,color:#111;
+    classDef note fill:#f5f5f5,stroke:#6b7280,stroke-width:1px,color:#111;
+    classDef small fill:#ffffff,stroke:#94a3b8,stroke-width:1px,color:#111;
+
+    subgraph T1[Producer]
+        P1[Applications produce\nhuge volume of data\n(e.g. 100,000 records/sec)]
+    end
+    class P1 producer;
+
+    subgraph T2[Kafka Cluster (Brokers)]
+        K1[Topic: orders]
+        K2[Partition 0]
+        K3[Partition 1]
+        K4[Partition 2]
+    end
+    class K1,K2,K3,K4 kafka;
+
+    subgraph T3[Kafka Streams\n(Consumer Group)]
+        S1[Consumer 1]
+        S2[Consumer 2]
+        S3[Consumer 3]
+        S4[Consumer N]
+    end
+    class S1,S2,S3,S4 stream;
+
+    subgraph T4[Batch Writer]
+        W1[Batch INSERT / UPSERT]
+        W2[1000 rows per batch]
+    end
+    class W1,W2 batch;
+
+    subgraph T5[Database]
+        D1[(MySQL / PostgreSQL / etc.)]
+    end
+    class D1 db;
+
+    P1 -->|write events| K1
+    K1 --> K2
+    K1 --> K3
+    K1 --> K4
+    K2 --> S1
+    K3 --> S2
+    K4 --> S3
+    K3 --> S4
+    S1 --> W1
+    S2 --> W1
+    S3 --> W1
+    S4 --> W1
+    W1 --> D1
+
+    subgraph T6[Where Kafka stores data]
+        ST1[Disk Storage]
+        ST2[Kafka broker stores\nlog segments and index files]
+        ST3[Retained for configured period\n(e.g. 7 days) or size limit]
+        ST4[Replicated across brokers\nfor availability]
+    end
+    class ST1,ST2,ST3,ST4 note;
+
+    subgraph T7[Consumer Offset (progress tracking)]
+        O1[Partition log]
+        O2[0 1 2 3 4 5 6 7 8 9 ...]
+        O3[Consumer offset\n(next record to read)]
+    end
+    class O1,O2,O3 small;
+
+    subgraph T8[Key Benefits]
+        B1[Handles huge data volume]
+        B2[Smooths traffic spikes]
+        B3[Parallel processing]
+        B4[Batch writes to DB]
+        B5[Retries and replay]
+    end
+    class B1,B2,B3,B4,B5 note;
+
+    K1 -. stores data on disk .-> ST1
+    S1 -. tracks offset .-> O3
+    K1 -. durable buffer .-> B1
+    K1 -. decouples producer from DB .-> B2
+    S1 -. parallel consumers .-> B3
+    W1 -. efficient writes .-> B4
+    K1 -. replay after failure .-> B5
+```
+
 ## Use Cases
 
 ### In Google News System

@@ -9,6 +9,20 @@ Core responsibilities:
 - Ensuring durability and recoverability after failures
 - Scaling reads and writes as demand grows
 
+## Visualization
+
+```mermaid
+flowchart TD
+    App[Application] --> DB[Database Layer]
+    DB --> Relational[Relational DB]
+    DB --> KV[Key-Value Store]
+    DB --> Doc[Document Store]
+    DB --> Wide[Wide-Column DB]
+    DB --> Search[Search Engine]
+    DB --> Graph[Graph DB]
+    DB --> TimeSeries[Time-Series DB]
+```
+
 ## Types of Databases
 1. Relational (RDBMS)
    - Examples: PostgreSQL, MySQL, MariaDB

@@ -8,6 +8,20 @@ This design document describes a scalable configuration/feature-flag service tha
 - Cache consistency with infrequent updates
 - Support for large payloads up to 500 KB
 
+## Visualization
+
+```mermaid
+flowchart LR
+    Client[Client Service] --> API[Config API]
+    API --> L1[L1 Local Cache]
+    API --> L2[L2 Redis / Memcached]
+    API --> DB[MySQL / Postgres Metadata Store]
+    DB --> CDC[CDC / Binlog -> Kafka]
+    CDC --> CacheSync[Cache Invalidation / Refresh]
+    L2 --> Client
+    CacheSync --> L2
+```
+
 ## Requirements
 
 ### Functional

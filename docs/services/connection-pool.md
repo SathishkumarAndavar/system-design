@@ -3,6 +3,19 @@
 ## Overview
 Connection pooling is a technique to manage and reuse database, cache, and external service connections efficiently. It reduces the overhead of establishing new connections and improves application performance and stability in the Google News system.
 
+## Visualization
+
+```mermaid
+flowchart LR
+    App[Application Thread] --> Pool[Connection Pool]
+    Pool --> Available[Available Connections]
+    Pool --> InUse[In-Use Connections]
+    Pool --> Waiting[Waiting Queue]
+    Available --> DB[(Database / Redis / Kafka)]
+    InUse --> DB
+    Waiting --> Pool
+```
+
 ## Use Cases
 
 ### In Google News System

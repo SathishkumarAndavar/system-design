@@ -3,6 +3,20 @@
 ## Overview
 Redis is an in-memory data structure store used for caching, session management, real-time data processing, and state management. It provides sub-millisecond latency and high throughput for the Google News system.
 
+## Visualization
+
+```mermaid
+flowchart LR
+    App[Application / API] --> Redis[Redis Cluster]
+    Redis --> Cache[Hot Data Cache]
+    Redis --> Session[Session State]
+    Redis --> Counter[Real-time Counters]
+    Redis --> Lock[Distributed Locks]
+    App --> DB[(Primary Database)]
+    Cache --> DB
+    Session --> DB
+```
+
 ## Use Cases
 
 ### In Google News System

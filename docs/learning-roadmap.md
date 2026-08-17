@@ -2,6 +2,21 @@
 
 This document maps your existing system design notes to a structured learning path.
 
+## Visualization
+
+```mermaid
+flowchart TD
+    Basics[Core Foundations] --> Services[Distributed Services]
+    Services --> Patterns[Messaging, Caching, Storage, Coordination]
+    Patterns --> Scaling[Scaling & Reliability]
+    Scaling --> CaseStudies[Case Studies & Interviews]
+    Services --> Kafka[Kafka]
+    Services --> Redis[Redis]
+    Services --> DB[Databases]
+    Services --> ZK[ZooKeeper]
+    Patterns --> Logging[Logging & Observability]
+```
+
 ---
 
 ### Building Blocks

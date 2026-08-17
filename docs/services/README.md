@@ -4,6 +4,21 @@
 
 This directory contains detailed documentation for all critical services used in the Google News system design. Each service provides specific capabilities for building a scalable, event-driven, real-time news aggregation platform.
 
+## Visualization
+
+```mermaid
+flowchart LR
+    Crawlers[Content Crawlers] --> Kafka[Kafka Message Queue]
+    Kafka --> Streams[Kafka Streams]
+    Kafka --> Events[Event Triggers]
+    Streams --> Elastic[Elasticsearch]
+    Streams --> Redis[Redis Cache]
+    Events --> Notify[Notifications]
+    Elastic --> API[API / Search Layer]
+    Redis --> API
+    API --> Users[Users]
+```
+
 ## Quick Reference Table
 
 | Service | Purpose | Throughput | Latency | Key Features |

@@ -3,6 +3,20 @@
 ## Overview
 Apache Kafka is a distributed event streaming platform designed for high-throughput, fault-tolerant, and scalable message processing. It acts as a central hub for real-time data flows in the Google News system.
 
+## Visualization
+
+```mermaid
+flowchart LR
+    Producer1[Crawlers] --> Topic1[raw-articles Topic]
+    Producer2[User Events] --> Topic2[user-events Topic]
+    Topic1 --> Broker[Kafka Cluster]
+    Topic2 --> Broker
+    Broker --> Consumer1[Ingestion Service]
+    Broker --> Consumer2[Ranking Service]
+    Broker --> Consumer3[Analytics Pipeline]
+    Broker --> Consumer4[Notification Service]
+```
+
 ## Use Cases
 
 ### In Google News System

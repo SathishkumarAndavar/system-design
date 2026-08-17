@@ -4,6 +4,23 @@
 
 Design a centralized logging system that collects, stores, indexes, and analyzes logs from distributed services and infrastructure. The system should support real-time ingestion, searchable log queries, alerting, and long-term storage.
 
+## Visualization
+
+```mermaid
+flowchart LR
+    App1[App Service] --> LogShipper[Log Shipper / Agent]
+    App2[Worker Service] --> LogShipper
+    LB[Load Balancer] --> LogShipper
+    LogShipper --> Gateway[Log Ingestion Gateway]
+    Gateway --> Kafka[Kafka / Queue]
+    Kafka --> Parser[Log Parsing + Enrichment]
+    Parser --> Index[Log Index / Search Store]
+    Parser --> Alert[Alerting + Metrics]
+    Index --> UI[Search UI / Dashboards]
+    Index --> Archive[Cold Storage Archive]
+    Alert --> Notify[Notifications]
+```
+
 ## Goals
 
 - Centralize logs from application servers, microservices, load balancers, and background jobs.
