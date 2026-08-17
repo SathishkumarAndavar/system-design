@@ -4,6 +4,9 @@ This repository contains system design interview preparation materials and refer
 
 ## Included content
 
+For a single entry point to the architecture diagrams, see the
+[visualization map](docs/visualizations.md).
+
 - `docs/google-news-system-design.md` — a detailed system design reference for building a Google News–style service.
 - `docs/centralized-logging-system-design.md` — a high-level design guide for a centralized logging and observability platform.
 - `docs/fraudulent-card-detection-design.md` — a fraud detection design for book-now-pay-later credit card checks.

@@ -92,7 +92,6 @@ sequenceDiagram
     Client->>+ZK: Get Children of `/locks/my-resource`
     ZK-->>-Client: Return list: `[lock-0000000005]`
     Client->>Client: My Znode is now lowest. Acquire Lock!
-end
 ```
 
 **Detailed Steps to Acquire Lock:**
