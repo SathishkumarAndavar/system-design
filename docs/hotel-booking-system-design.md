@@ -43,7 +43,7 @@ Design a hotel booking system that supports users searching for hotels, reservin
 
 ### Architecture Diagram
 
-!Hotel Booking System Architecture
+![Hotel Booking System Architecture](assets/infographics/hotel-booking-system-design-01.png)
 
 ```mermaid
 graph TD;

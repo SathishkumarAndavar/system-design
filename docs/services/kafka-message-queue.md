@@ -5,7 +5,7 @@ Apache Kafka is a distributed event streaming platform designed for high-through
 
 ## Visualization
 
-!Kafka Message Queue Data Flow
+![Kafka Message Queue Data Flow](assets/infographics/services-kafka-message-queue-01.png)
 
 ```mermaid
 flowchart LR
